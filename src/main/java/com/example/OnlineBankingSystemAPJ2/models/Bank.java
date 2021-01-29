@@ -1,5 +1,7 @@
 package com.example.OnlineBankingSystemAPJ2.models;
 
+import com.example.OnlineBankingSystemAPJ2.models.stable.CurrencyType;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +15,9 @@ public class Bank {
     private String name;
     private String address;
 
+    private CurrencyType currencyType;
+    private double budget;
+
     @OneToMany(
             cascade = CascadeType.ALL,
             orphanRemoval = true
@@ -24,6 +29,8 @@ public class Bank {
         this.name = name;
         this.address = address;
         this.creditCards=new ArrayList<>();
+        this.currencyType=CurrencyType.USD;
+        this.budget=100_000_000;
     }
 
     public Bank() {
@@ -55,4 +62,19 @@ public class Bank {
     }
 
 
+    public double getBudget() {
+        return budget;
+    }
+
+    public void setBudget(double budget) {
+        this.budget = budget;
+    }
+
+    public CurrencyType getCurrencyType() {
+        return currencyType;
+    }
+
+    public void setCurrencyType(CurrencyType currencyType) {
+        this.currencyType = currencyType;
+    }
 }

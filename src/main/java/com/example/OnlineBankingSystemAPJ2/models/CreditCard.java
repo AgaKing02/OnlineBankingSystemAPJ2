@@ -5,11 +5,14 @@ import com.example.OnlineBankingSystemAPJ2.models.stable.CurrencyType;
 
 import javax.persistence.*;
 
+
 @Entity
 public class CreditCard implements Credit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    private String cardNumber;
 
     private double amount;
 
@@ -20,6 +23,12 @@ public class CreditCard implements Credit {
     @JoinColumn(name = "user_id")
     private User user;
 
+    public CreditCard(String cardNumber, double amount, CurrencyType currencyType, User user) {
+        this.cardNumber = cardNumber;
+        this.amount = amount;
+        this.currencyType = currencyType;
+        this.user = user;
+    }
 
     public CreditCard(int amount, CurrencyType currencyType) {
         this.amount = amount;
@@ -64,7 +73,7 @@ public class CreditCard implements Credit {
         if ((this.amount - amount) >= 0.0) {
             this.amount -= amount;
         } else {
-            throw new NotEnoughMoneyInCardException("Not enough money in card");
+            throw new NotEnoughMoneyInCardException("Not enough money in card "+this.amount+" "+this.currencyType.name());
         }
     }
 
@@ -114,5 +123,13 @@ public class CreditCard implements Credit {
                 return this.amount;
         }
 
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
     }
 }
