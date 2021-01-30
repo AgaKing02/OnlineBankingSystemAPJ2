@@ -36,7 +36,7 @@ public class TransactionCtoCService implements TransactionCtoC {
         try {
             creditCardFrom.removeAmount(transactionBetweenC.getAmount());
         } catch (NotEnoughMoneyInCardException e) {
-            e.printStackTrace();
+            return null;
         }
         double transferredAmount= Transfer.change(creditCardFrom.getCurrencyType(),creditCardTo.getCurrencyType(),transactionBetweenC.getAmount());
 

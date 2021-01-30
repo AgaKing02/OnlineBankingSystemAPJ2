@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface TransactionCtoC extends TransactionService<TransactionBetweenC>{
     List<TransactionBetweenC> getUserTransactions(String username);
+
 }

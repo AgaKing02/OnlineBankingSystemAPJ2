@@ -11,4 +11,5 @@ import java.util.List;
 public interface CreditCardRepository extends CrudRepository<CreditCard,Integer> {
     CreditCard getByCardNumber(String cardNumber);
     List<CreditCard> getAllByUser(User user);
+    CreditCard getCreditCardByIdAndUserUsername(int id, String user_username);
 }

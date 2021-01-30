@@ -20,6 +20,8 @@
     <div class="col" th:each="bank:${banks}">
       <h1>Name:</h1>
         <h3 th:text="${bank.getName()}"/>
+        <h1>Customers :</h1>
+        <h3 th:text="${bank.getCustomers()}"/>
     </div>
 </div>
 

@@ -41,4 +41,9 @@ public class UsersDetailService implements UserDetailsService, UserService {
     public void remove(User entity) {
         usersRepository.delete(entity);
     }
+
+    @Override
+    public User getUserByUsername(String username) {
+        return usersRepository.findUserByUsername(username);
+    }
 }

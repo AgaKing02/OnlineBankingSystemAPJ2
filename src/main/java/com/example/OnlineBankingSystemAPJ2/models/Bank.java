@@ -66,7 +66,6 @@ public class Bank {
         return this.creditCards.size();
     }
 
-
     public double getBudget() {
         return budget;
     }

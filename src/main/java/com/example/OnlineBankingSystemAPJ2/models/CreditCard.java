@@ -11,7 +11,7 @@ public class CreditCard{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
+    @Column(nullable = false,unique = true)
     private String cardNumber;
 
     private double amount;

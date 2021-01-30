@@ -21,22 +21,20 @@ public class MainController {
     }
 
     @GetMapping("/")
-    public String getMainPage(Model model){
-        List<BankDto> bankDtos=new ArrayList<>();
+    public String getMainPage(Model model) {
+        List<BankDto> bankDtos = new ArrayList<>();
 
-        List<Bank> bankList=bankService.getAllBanks();
-        bankList.forEach(e->bankDtos.add(new BankDto(e)));
+        List<Bank> bankList = bankService.getAllBanks();
+        bankList.forEach(e -> bankDtos.add(new BankDto(e)));
 
-        model.addAttribute("banks",bankDtos);
+        model.addAttribute("banks", bankDtos);
         return "main-page";
     }
 
     @GetMapping("/banks")
-    public String getBanks(){
-
+    public String getBanks() {
         return "main-page";
     }
-
 
 
 }
