@@ -11,6 +11,7 @@ public class CreditCard{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @Column(nullable = false,unique = true)
     private String cardNumber;
 
@@ -23,11 +24,17 @@ public class CreditCard{
     @JoinColumn(name = "user_id")
     private User user;
 
-    public CreditCard(String cardNumber, double amount, CurrencyType currencyType, User user) {
-        this.cardNumber = cardNumber;
+    public CreditCard( double amount, CurrencyType currencyType, User user) {
+        this.cardNumber = RandomString.getRandomString();
         this.amount = amount;
         this.currencyType = currencyType;
         this.user = user;
+    }
+
+    public CreditCard(CurrencyType currencyType, User user) {
+        this.currencyType = currencyType;
+        this.user = user;
+        this.cardNumber=RandomString.getRandomString();
     }
 
     public CreditCard(int amount, CurrencyType currencyType) {

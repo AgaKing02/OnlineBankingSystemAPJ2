@@ -28,9 +28,9 @@ public class OnlineBankingSystemApj2Application {
         UserRepository userRepository = configurableApplicationContext.getBean(UserRepository.class);
         userRepository.deleteAll();
 
-        BankRepository bankRepository=configurableApplicationContext.getBean(BankRepository.class);
+        BankRepository bankRepository = configurableApplicationContext.getBean(BankRepository.class);
         bankRepository.deleteAll();
-        bankRepository.save(new Bank("Kaspi","Is unknown"));
+        bankRepository.save(new Bank("Kaspi", "Is unknown"));
 
         Consumer consumer = new Consumer("Aga", passwordEncoder.encode("aga02"), "Agakhan", "Peyishbek");
         Administrator administrator = new Administrator("Zhako", passwordEncoder.encode("boss02"), "Zhandaulet", "Myrzatayev");
@@ -43,12 +43,11 @@ public class OnlineBankingSystemApj2Application {
 
         TransactionCtoC transactionCtoC = configurableApplicationContext.getBean(TransactionCtoCService.class);
         TransactionBetweenC transactionBetweenC = new TransactionBetweenC(
-                creditCardRepository.save(new CreditCard("________________", 1500.0, CurrencyType.EUR, userRepository.findUserByUsername("Aga"))),
-                creditCardRepository.save(new CreditCard("________________", 0.0, CurrencyType.KZT, userRepository.findUserByUsername("Zhako"))), 1500D
+                creditCardRepository.save(new CreditCard(1500.0, CurrencyType.EUR, userRepository.findUserByUsername("Aga"))),
+                creditCardRepository.save(new CreditCard( 0.0, CurrencyType.KZT, userRepository.findUserByUsername("Zhako"))), 1500D
 
         );
         transactionCtoC.saveTransaction(transactionBetweenC);
-
 
 
 //        System.out.println(
