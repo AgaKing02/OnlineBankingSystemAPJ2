@@ -1,11 +1,10 @@
 package com.example.OnlineBankingSystemAPJ2.models.transactions;
 
 import com.example.OnlineBankingSystemAPJ2.models.CreditCard;
+import com.example.OnlineBankingSystemAPJ2.models.stable.CurrencyType;
 import com.example.OnlineBankingSystemAPJ2.models.stable.TransactionType;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class TransactionBetweenC extends Transaction{
@@ -23,6 +22,7 @@ public class TransactionBetweenC extends Transaction{
         this.to = to;
         this.amount=amount;
         super.setTransactionType(TransactionType.CARD_TO_CARD);
+        super.setCurrencyType(this.from.getCurrencyType());
     }
 
     public TransactionBetweenC() {

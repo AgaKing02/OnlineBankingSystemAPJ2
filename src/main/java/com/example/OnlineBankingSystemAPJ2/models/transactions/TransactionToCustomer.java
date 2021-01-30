@@ -26,6 +26,8 @@ public class TransactionToCustomer extends Transaction {
         this.to = to;
         this.amount = amount;
         super.setTransactionType(TransactionType.FROM_OUR_BANK);
+        super.setCurrencyType(this.from.getCurrencyType());
+
 
     }
 
