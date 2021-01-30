@@ -6,6 +6,7 @@ import com.example.OnlineBankingSystemAPJ2.models.CreditCard;
 import com.example.OnlineBankingSystemAPJ2.models.User;
 import com.example.OnlineBankingSystemAPJ2.models.stable.CurrencyType;
 import com.example.OnlineBankingSystemAPJ2.models.transactions.TransactionBetweenC;
+import com.example.OnlineBankingSystemAPJ2.models.transactions.abstractions.TransactionBetweenCRepository;
 import com.example.OnlineBankingSystemAPJ2.models.transactions.abstractions.TransactionRepository;
 import com.example.OnlineBankingSystemAPJ2.models.transactions.abstractions.TransactionToCustomerRepository;
 import com.example.OnlineBankingSystemAPJ2.repositories.CreditCardRepository;
@@ -20,8 +21,8 @@ public class OnlineBankingSystemApj2Application {
     public static void main(String[] args) {
 
         ConfigurableApplicationContext configurableApplicationContext = SpringApplication.run(OnlineBankingSystemApj2Application.class, args);
-        TransactionRepository toCustomerRepository = configurableApplicationContext.getBean(TransactionToCustomerRepository.class);
-        toCustomerRepository.deleteAll();
+        TransactionRepository cToCustomerRepository = configurableApplicationContext.getBean(TransactionBetweenCRepository.class);
+        cToCustomerRepository.deleteAll();
 
         CreditCardRepository creditCardRepository = configurableApplicationContext.getBean(CreditCardRepository.class);
         creditCardRepository.deleteAll();
@@ -39,11 +40,20 @@ public class OnlineBankingSystemApj2Application {
 
 
 
-        toCustomerRepository.save(new TransactionBetweenC(
+        cToCustomerRepository.save(new TransactionBetweenC(
                 creditCardRepository.save(new CreditCard("________________", 3000.0, CurrencyType.USD, userRepository.findUserByUsername("Aga"))),
                 creditCardRepository.save(new CreditCard("________________", 3000.0, CurrencyType.USD, userRepository.findUserByUsername("Zhako"))), 3000D
 
         ));
+
+//        System.out.println(
+//                ((TransactionBetweenC) cToCustomerRepository
+//                .findAll()
+//                .iterator()
+//                .next())
+//                .getFrom()
+//                .getUser()
+//                .getUsername());
 
 
     }

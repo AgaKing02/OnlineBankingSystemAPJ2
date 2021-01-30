@@ -1,4 +1,4 @@
-package com.example.OnlineBankingSystemAPJ2.services;
+package com.example.OnlineBankingSystemAPJ2.services.implementations;
 
 import com.example.OnlineBankingSystemAPJ2.models.User;
 import org.springframework.security.core.GrantedAuthority;

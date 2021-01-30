@@ -1,7 +1,7 @@
 package com.example.OnlineBankingSystemAPJ2.configuration;
 
 import com.example.OnlineBankingSystemAPJ2.models.stable.Role;
-import com.example.OnlineBankingSystemAPJ2.services.UsersDetailService;
+import com.example.OnlineBankingSystemAPJ2.services.implementations.UsersDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,8 +26,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/users").hasRole(Role.ADMINISTRATOR.name())
-                .antMatchers("/profile", "/transactions", "/cards", "/bank").authenticated()
+                .antMatchers("/admin/mode/**").hasRole(Role.ADMINISTRATOR.name())
+                .antMatchers("my/**").authenticated()
                 .and()
                 .formLogin()
                 .loginProcessingUrl("/login")
