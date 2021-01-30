@@ -1,14 +1,9 @@
 package com.example.OnlineBankingSystemAPJ2;
 
-import com.example.OnlineBankingSystemAPJ2.models.Administrator;
-import com.example.OnlineBankingSystemAPJ2.models.Consumer;
-import com.example.OnlineBankingSystemAPJ2.models.CreditCard;
-import com.example.OnlineBankingSystemAPJ2.models.User;
+import com.example.OnlineBankingSystemAPJ2.models.*;
 import com.example.OnlineBankingSystemAPJ2.models.stable.CurrencyType;
 import com.example.OnlineBankingSystemAPJ2.models.transactions.TransactionBetweenC;
-import com.example.OnlineBankingSystemAPJ2.repositories.CreditCardRepository;
-import com.example.OnlineBankingSystemAPJ2.repositories.TransactionBetweenCRepository;
-import com.example.OnlineBankingSystemAPJ2.repositories.UserRepository;
+import com.example.OnlineBankingSystemAPJ2.repositories.*;
 import com.example.OnlineBankingSystemAPJ2.services.implementations.TransactionCtoCService;
 import com.example.OnlineBankingSystemAPJ2.services.transactions.TransactionCtoC;
 import org.springframework.boot.SpringApplication;
@@ -16,7 +11,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import com.example.OnlineBankingSystemAPJ2.repositories.TransactionRepository;
 
 @SpringBootApplication
 public class OnlineBankingSystemApj2Application {
@@ -33,6 +27,10 @@ public class OnlineBankingSystemApj2Application {
 
         UserRepository userRepository = configurableApplicationContext.getBean(UserRepository.class);
         userRepository.deleteAll();
+
+        BankRepository bankRepository=configurableApplicationContext.getBean(BankRepository.class);
+        bankRepository.deleteAll();
+        bankRepository.save(new Bank("Kaspi","Is unknown"));
 
         Consumer consumer = new Consumer("Aga", passwordEncoder.encode("aga02"), "Agakhan", "Peyishbek");
         Administrator administrator = new Administrator("Zhako", passwordEncoder.encode("boss02"), "Zhandaulet", "Myrzatayev");

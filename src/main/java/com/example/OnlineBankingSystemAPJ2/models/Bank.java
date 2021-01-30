@@ -15,6 +15,7 @@ public class Bank {
     private String name;
     private String address;
 
+    @Enumerated(EnumType.STRING)
     private CurrencyType currencyType;
     private double budget;
 
@@ -59,6 +60,10 @@ public class Bank {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public int getAmountOfCustomers(){
+        return this.creditCards.size();
     }
 
 
