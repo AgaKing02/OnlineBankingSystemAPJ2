@@ -1,4 +1,4 @@
-package com.example.OnlineBankingSystemAPJ2.models.transactions.abstractions;
+package com.example.OnlineBankingSystemAPJ2.repositories;
 
 import com.example.OnlineBankingSystemAPJ2.models.transactions.TransactionBetweenC;
 import org.springframework.data.jpa.repository.Query;

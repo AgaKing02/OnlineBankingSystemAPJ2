@@ -1,4 +1,4 @@
-package com.example.OnlineBankingSystemAPJ2.models.transactions.abstractions;
+package com.example.OnlineBankingSystemAPJ2.repositories;
 
 import com.example.OnlineBankingSystemAPJ2.models.transactions.Transaction;
 import org.springframework.data.repository.CrudRepository;

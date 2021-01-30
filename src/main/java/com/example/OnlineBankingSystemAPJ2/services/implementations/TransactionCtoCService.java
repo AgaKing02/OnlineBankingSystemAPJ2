@@ -2,10 +2,9 @@ package com.example.OnlineBankingSystemAPJ2.services.implementations;
 
 import com.example.OnlineBankingSystemAPJ2.models.CreditCard;
 import com.example.OnlineBankingSystemAPJ2.models.NotEnoughMoneyInCardException;
-import com.example.OnlineBankingSystemAPJ2.models.TransferMoney;
-import com.example.OnlineBankingSystemAPJ2.models.User;
+import com.example.OnlineBankingSystemAPJ2.models.interfaces.Transfer;
 import com.example.OnlineBankingSystemAPJ2.models.transactions.TransactionBetweenC;
-import com.example.OnlineBankingSystemAPJ2.models.transactions.abstractions.TransactionBetweenCRepository;
+import com.example.OnlineBankingSystemAPJ2.repositories.TransactionBetweenCRepository;
 import com.example.OnlineBankingSystemAPJ2.repositories.CreditCardRepository;
 import com.example.OnlineBankingSystemAPJ2.services.transactions.TransactionCtoC;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +38,7 @@ public class TransactionCtoCService implements TransactionCtoC {
         } catch (NotEnoughMoneyInCardException e) {
             e.printStackTrace();
         }
-        double transferredAmount= TransferMoney.change(creditCardFrom.getCurrencyType(),creditCardTo.getCurrencyType(),transactionBetweenC.getAmount());
+        double transferredAmount= Transfer.change(creditCardFrom.getCurrencyType(),creditCardTo.getCurrencyType(),transactionBetweenC.getAmount());
 
         creditCardTo.setAmount(creditCardTo.getAmount()+transferredAmount);
 

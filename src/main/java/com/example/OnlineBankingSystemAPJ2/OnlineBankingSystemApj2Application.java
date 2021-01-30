@@ -6,9 +6,8 @@ import com.example.OnlineBankingSystemAPJ2.models.CreditCard;
 import com.example.OnlineBankingSystemAPJ2.models.User;
 import com.example.OnlineBankingSystemAPJ2.models.stable.CurrencyType;
 import com.example.OnlineBankingSystemAPJ2.models.transactions.TransactionBetweenC;
-import com.example.OnlineBankingSystemAPJ2.models.transactions.abstractions.TransactionBetweenCRepository;
-import com.example.OnlineBankingSystemAPJ2.models.transactions.abstractions.TransactionRepository;
 import com.example.OnlineBankingSystemAPJ2.repositories.CreditCardRepository;
+import com.example.OnlineBankingSystemAPJ2.repositories.TransactionBetweenCRepository;
 import com.example.OnlineBankingSystemAPJ2.repositories.UserRepository;
 import com.example.OnlineBankingSystemAPJ2.services.implementations.TransactionCtoCService;
 import com.example.OnlineBankingSystemAPJ2.services.transactions.TransactionCtoC;
@@ -17,6 +16,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import com.example.OnlineBankingSystemAPJ2.repositories.TransactionRepository;
 
 @SpringBootApplication
 public class OnlineBankingSystemApj2Application {
@@ -46,7 +46,7 @@ public class OnlineBankingSystemApj2Application {
         TransactionCtoC transactionCtoC = configurableApplicationContext.getBean(TransactionCtoCService.class);
         TransactionBetweenC transactionBetweenC = new TransactionBetweenC(
                 creditCardRepository.save(new CreditCard("________________", 1500.0, CurrencyType.EUR, userRepository.findUserByUsername("Aga"))),
-                creditCardRepository.save(new CreditCard("________________", 3000.0, CurrencyType.USD, userRepository.findUserByUsername("Zhako"))), 1500D
+                creditCardRepository.save(new CreditCard("________________", 0.0, CurrencyType.KZT, userRepository.findUserByUsername("Zhako"))), 1500D
 
         );
         transactionCtoC.saveTransaction(transactionBetweenC);

@@ -1,6 +1,6 @@
 package com.example.OnlineBankingSystemAPJ2.models;
 
-import com.example.OnlineBankingSystemAPJ2.models.interfaces.Credit;
+import com.example.OnlineBankingSystemAPJ2.models.interfaces.Transfer;
 import com.example.OnlineBankingSystemAPJ2.models.stable.CurrencyType;
 
 import javax.persistence.*;
@@ -83,7 +83,7 @@ public class CreditCard{
     }
 
     public void setCurrencyType(CurrencyType currencyType) {
-        setAmount(TransferMoney.change(this.currencyType,currencyType,this.amount));
+        setAmount(Transfer.change(this.currencyType,currencyType,this.amount));
         this.currencyType = currencyType;
     }
 
