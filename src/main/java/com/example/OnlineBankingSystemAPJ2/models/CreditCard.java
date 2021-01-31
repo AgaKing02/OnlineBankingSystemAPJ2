@@ -1,5 +1,6 @@
 package com.example.OnlineBankingSystemAPJ2.models;
 
+import com.example.OnlineBankingSystemAPJ2.models.interfaces.RandomString;
 import com.example.OnlineBankingSystemAPJ2.models.interfaces.Transfer;
 import com.example.OnlineBankingSystemAPJ2.models.stable.CurrencyType;
 

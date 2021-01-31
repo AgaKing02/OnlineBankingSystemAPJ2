@@ -10,4 +10,6 @@ import java.util.List;
 public interface TransactionToABankRepository extends TransactionRepository{
     @Query("select o from TransactionToABank o where o.to.user.username=?1")
     List<TransactionToABank> getUserTransactions(String username);
+    @Query("select o  from TransactionToCustomer o where o.from.id=?1")
+    List<TransactionToABank> getBankTransactionsToABank(int id);
 }

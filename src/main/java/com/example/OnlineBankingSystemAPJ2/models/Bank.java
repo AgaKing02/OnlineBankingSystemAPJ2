@@ -25,8 +25,12 @@ public class Bank {
     )
     @JoinColumn(name = "bank_id")
     private List<CreditCard> creditCards;
+    @OneToOne
+    @JoinColumn(name = "owner_id",referencedColumnName = "id")
+    private User owner;
 
-    public Bank(String name, String address) {
+    public Bank(String name, String address,User owner) {
+        this.owner=owner;
         this.name = name;
         this.address = address;
         this.creditCards=new ArrayList<>();
@@ -80,5 +84,13 @@ public class Bank {
 
     public void setCurrencyType(CurrencyType currencyType) {
         this.currencyType = currencyType;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 }

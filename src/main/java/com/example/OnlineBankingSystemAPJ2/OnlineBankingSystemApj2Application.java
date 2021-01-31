@@ -28,14 +28,15 @@ public class OnlineBankingSystemApj2Application {
         UserRepository userRepository = configurableApplicationContext.getBean(UserRepository.class);
         userRepository.deleteAll();
 
-        BankRepository bankRepository = configurableApplicationContext.getBean(BankRepository.class);
-        bankRepository.deleteAll();
-        bankRepository.save(new Bank("Kaspi", "Is unknown"));
 
         Consumer consumer = new Consumer("Aga", passwordEncoder.encode("aga02"), "Agakhan", "Peyishbek");
         Administrator administrator = new Administrator("Zhako", passwordEncoder.encode("boss02"), "Zhandaulet", "Myrzatayev");
-        userRepository.save(new User(administrator));
+        User admin=userRepository.save(new User(administrator));
         userRepository.save(new User(consumer));
+
+        BankRepository bankRepository = configurableApplicationContext.getBean(BankRepository.class);
+        bankRepository.deleteAll();
+        bankRepository.save(new Bank("Kaspi", "Is unknown",admin));
 
 //        creditCardRepository.save(new CreditCard("________________", 3000.0, CurrencyType.USD, userRepository.findUserByUsername("Aga")));
 //        creditCardRepository.save(new CreditCard("________________", 3000.0, CurrencyType.USD, userRepository.findUserByUsername("Zhako")));

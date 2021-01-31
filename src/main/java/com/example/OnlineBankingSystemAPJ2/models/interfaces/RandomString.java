@@ -1,4 +1,4 @@
-package com.example.OnlineBankingSystemAPJ2.models;
+package com.example.OnlineBankingSystemAPJ2.models.interfaces;
 
 import java.util.Random;
 

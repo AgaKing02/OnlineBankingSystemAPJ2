@@ -1,52 +1,13 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light rounded" aria-label="Eleventh navbar example"
-     th:fragment="header">
-
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false"
-                aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="navbar-collapse collapse" id="navbarsExample09" style="">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item active">
-                    <a class="nav-link" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/login" sec:authorize="isAnonymous()">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/sign/up" sec:authorize="isAnonymous()">Sign Up</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/logout" sec:authorize="isAuthenticated()">Sign out</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdown09" data-bs-toggle="dropdown"
-                       aria-expanded="false">Dropdown</a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdown09">
-                        <li>
-                            <a class="dropdown-item" href="#" sec:authorize="hasRole('ROLE_ADMINISTRATOR')">Action</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#" sec:authorize="hasRole('ROLE_ADMINISTRATOR')">Another
-                                action</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#" sec:authorize="hasRole('ROLE_ADMINISTRATOR')">Something
-                                else here</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            <form>
-                <input class="form-control" type="text" placeholder="Search" aria-label="Search">
-            </form>
-        </div>
-    </div>
-</nav>
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm"
+     th:fragment="header" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <h5 class="mean-fruit-gradient my-0 mr-md-auto font-weight-normal">OBS</h5>
+    <nav class="my-2 my-md-0 mr-md-3">
+        <a class="p-2 text-dark" href="/">Main</a>
+        <a class="p-2 text-dark" href="/my/cards" sec:authorize="isAuthenticated()">My Cards</a>
+        <a class="p-2 text-dark" href="/my/history"  sec:authorize="isAuthenticated()">My Transactions</a>
+        <a class="p-2 text-dark" href="/about">About</a>
+    </nav>
+    <a class="btn btn-outline-primary" href="/login" sec:authorize="isAnonymous()">Sign in</a>
+    <a class="btn btn-outline-warning mx-1" href="/sign/up" sec:authorize="isAnonymous()">Sign Up</a>
+    <a class="btn btn-outline-danger" href="/logout"  sec:authorize="isAuthenticated()" >Sign out</a>
