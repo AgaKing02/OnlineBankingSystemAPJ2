@@ -5,6 +5,7 @@ import com.example.OnlineBankingSystemAPJ2.models.stable.CurrencyType;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Bank {
@@ -92,5 +93,18 @@ public class Bank {
 
     public void setOwner(User owner) {
         this.owner = owner;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Bank)) return false;
+        Bank bank = (Bank) o;
+        return getId() == bank.getId() && getName().equals(bank.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName());
     }
 }

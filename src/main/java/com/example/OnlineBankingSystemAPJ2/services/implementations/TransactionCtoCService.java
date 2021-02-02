@@ -19,7 +19,7 @@ public class TransactionCtoCService implements TransactionCtoC {
     @Autowired
     private final CreditCardRepository creditCardRepository;
 
-    public final static double TAX_PERCENT = 0.1;
+    public final static double TAX_PERCENT = 0.01;
 
     private TransferService transferService;
 
