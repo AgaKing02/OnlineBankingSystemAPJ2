@@ -1,15 +1,15 @@
 package com.example.OnlineBankingSystemAPJ2.services.implementations;
 
+import com.example.OnlineBankingSystemAPJ2.executors.TransferService;
 import com.example.OnlineBankingSystemAPJ2.models.CreditCard;
-import com.example.OnlineBankingSystemAPJ2.models.NotEnoughMoneyInCardException;
-import com.example.OnlineBankingSystemAPJ2.models.interfaces.Transfer;
 import com.example.OnlineBankingSystemAPJ2.models.transactions.TransactionBetweenC;
-import com.example.OnlineBankingSystemAPJ2.repositories.TransactionBetweenCRepository;
 import com.example.OnlineBankingSystemAPJ2.repositories.CreditCardRepository;
+import com.example.OnlineBankingSystemAPJ2.repositories.TransactionBetweenCRepository;
 import com.example.OnlineBankingSystemAPJ2.services.transactions.TransactionCtoC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Service
@@ -19,9 +19,19 @@ public class TransactionCtoCService implements TransactionCtoC {
     @Autowired
     private final CreditCardRepository creditCardRepository;
 
+    public final static double TAX_PERCENT = 0.1;
+
+    private TransferService transferService;
+
+    @PostConstruct
+    private void setTransferService() {
+        this.transferService = new TransferService();
+    }
+
     public TransactionCtoCService(TransactionBetweenCRepository transactionBetweenCRepository, CreditCardRepository creditCardRepository) {
         this.transactionBetweenCRepository = transactionBetweenCRepository;
         this.creditCardRepository = creditCardRepository;
+
     }
 
     @Override
@@ -31,21 +41,17 @@ public class TransactionCtoCService implements TransactionCtoC {
 
     @Override
     public TransactionBetweenC saveTransaction(TransactionBetweenC transactionBetweenC) {
-        CreditCard creditCardFrom=transactionBetweenC.getFrom();
-        CreditCard creditCardTo=transactionBetweenC.getTo();
-        try {
-            creditCardFrom.removeAmount(transactionBetweenC.getAmount());
-        } catch (NotEnoughMoneyInCardException e) {
+        CreditCard creditCardFrom = transactionBetweenC.getFrom();
+        CreditCard creditCardTo = transactionBetweenC.getTo();
+        if (transferService.transfer(creditCardFrom, creditCardTo, transactionBetweenC.getAmount())) {
+            System.out.println("Money transferred");
+            creditCardRepository.save(creditCardFrom);
+            creditCardRepository.save(creditCardTo);
+            return transactionBetweenCRepository.save(transactionBetweenC);
+        } else {
             return null;
         }
-        double transferredAmount= Transfer.change(creditCardFrom.getCurrencyType(),creditCardTo.getCurrencyType(),transactionBetweenC.getAmount());
 
-        creditCardTo.setAmount(creditCardTo.getAmount()+transferredAmount);
-
-        creditCardRepository.save(creditCardFrom);
-        creditCardRepository.save(creditCardTo);
-
-        return transactionBetweenCRepository.save(transactionBetweenC);
     }
 
     @Override

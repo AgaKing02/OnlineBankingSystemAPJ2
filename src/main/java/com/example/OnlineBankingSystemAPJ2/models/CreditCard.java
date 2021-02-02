@@ -25,11 +25,29 @@ public class CreditCard{
     @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "bank_id")
+    private Bank bank;
+
+    public CreditCard( double amount, CurrencyType currencyType, User user,Bank bank) {
+        this.cardNumber = RandomString.getRandomString();
+        this.amount = amount;
+        this.currencyType = currencyType;
+        this.user = user;
+        this.bank=bank;
+    }
     public CreditCard( double amount, CurrencyType currencyType, User user) {
         this.cardNumber = RandomString.getRandomString();
         this.amount = amount;
         this.currencyType = currencyType;
         this.user = user;
+    }
+
+    public CreditCard(CurrencyType currencyType, User user, Bank bank) {
+        this.currencyType = currencyType;
+        this.user = user;
+        this.bank = bank;
+        this.cardNumber=RandomString.getRandomString();
     }
 
     public CreditCard(CurrencyType currencyType, User user) {
@@ -38,10 +56,6 @@ public class CreditCard{
         this.cardNumber=RandomString.getRandomString();
     }
 
-    public CreditCard(int amount, CurrencyType currencyType) {
-        this.amount = amount;
-        this.currencyType = currencyType;
-    }
 
     public CreditCard(CurrencyType currencyType) {
         this.currencyType = currencyType;
@@ -102,5 +116,13 @@ public class CreditCard{
 
     public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
+    }
+
+    public Bank getBank() {
+        return bank;
+    }
+
+    public void setBank(Bank bank) {
+        this.bank = bank;
     }
 }

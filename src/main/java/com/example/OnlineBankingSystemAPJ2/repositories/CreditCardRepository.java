@@ -1,5 +1,6 @@
 package com.example.OnlineBankingSystemAPJ2.repositories;
 
+import com.example.OnlineBankingSystemAPJ2.models.Bank;
 import com.example.OnlineBankingSystemAPJ2.models.CreditCard;
 import com.example.OnlineBankingSystemAPJ2.models.User;
 import org.springframework.data.repository.CrudRepository;
