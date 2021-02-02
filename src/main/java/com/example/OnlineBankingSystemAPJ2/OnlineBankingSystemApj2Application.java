@@ -49,7 +49,7 @@ public class OnlineBankingSystemApj2Application {
         TransactionCtoC transactionCtoC = configurableApplicationContext.getBean(TransactionCtoCService.class);
         TransactionBetweenC transactionBetweenC = new TransactionBetweenC(
                 creditCardRepository.save(new CreditCard(1500.0, CurrencyType.USD, userRepository.findUserByUsername("Aga"))),
-                creditCardRepository.save(new CreditCard(0.0, CurrencyType.KZT, userRepository.findUserByUsername("Zhako"))), 1500D
+                creditCardRepository.save(new CreditCard(0.0, CurrencyType.KZT, userRepository.findUserByUsername("Zhako"))), 1600D
 
         );
         transactionCtoC.saveTransaction(transactionBetweenC);

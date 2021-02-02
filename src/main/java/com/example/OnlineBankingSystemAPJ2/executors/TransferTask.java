@@ -27,6 +27,7 @@ public class TransferTask implements Callable<Boolean> {
         try {
             creditCardFrom.removeAmount(amount);
         } catch (NotEnoughMoneyInCardException e) {
+            e.printStackTrace();
             return false;
         }
         double transferredAmount =
