@@ -2,12 +2,14 @@ package com.example.OnlineBankingSystemAPJ2.services.implementations;
 
 import com.example.OnlineBankingSystemAPJ2.executors.TransferService;
 import com.example.OnlineBankingSystemAPJ2.models.CreditCard;
+import com.example.OnlineBankingSystemAPJ2.models.transactions.Transaction;
 import com.example.OnlineBankingSystemAPJ2.models.transactions.TransactionBetweenC;
 import com.example.OnlineBankingSystemAPJ2.repositories.CreditCardRepository;
 import com.example.OnlineBankingSystemAPJ2.repositories.TransactionBetweenCRepository;
 import com.example.OnlineBankingSystemAPJ2.services.transactions.TransactionCtoC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -40,6 +42,13 @@ public class TransactionCtoCService implements TransactionCtoC {
     }
 
     @Override
+    public Iterable<Transaction> getAllTransactions() {
+        return transactionBetweenCRepository.findAll();
+    }
+
+
+    @Override
+    @Transactional
     public TransactionBetweenC saveTransaction(TransactionBetweenC transactionBetweenC) {
         CreditCard creditCardFrom = transactionBetweenC.getFrom();
         CreditCard creditCardTo = transactionBetweenC.getTo();
