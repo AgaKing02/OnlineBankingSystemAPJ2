@@ -38,14 +38,14 @@
         /*}*/
 
         .card {
-            float:left;
+            float: left;
             height: var(--height);
             width: var(--width);
             min-width: var(--width);
             background: linear-gradient(90deg, var(--purple), var(--purple2));
             border-radius: 10px;
             box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
-            margin:10px 5px 0 5px;
+            margin: 10px 5px 0 5px;
             filter: drop-shadow(3px 3px 3px rgba(0, 0, 0, 0.6));
         }
 
@@ -256,34 +256,43 @@
 <h1 th:if="${#arrays.length(cards)==0}">The cards does not exist</h1>
 <div th:if="${#arrays.length(cards)>0}" class="container">
     <div class="row">
-        <div th:each="card: ${cards}" class="card">
-
-            <figure class="card__figure">
-                <img src="https://conta.nubank.com.br/images/nu-white.png" class="card__figure--logo" alt="null"/>
-            </figure>
-            <div class="card__reader">
-                <div class="card__reader--risk card__reader--risk-one"></div>
-                <div class="card__reader--risk card__reader--risk-two"></div>
-                <div class="card__reader--risk card__reader--risk-three"></div>
-                <div class="card__reader--risk card__reader--risk-four"></div>
-            </div>
-            <p class="card__number" th:text="${
+        <div class="col" th:each="card: ${cards}">
+            <div class="card">
+                <figure class="card__figure">
+                    <img src="https://conta.nubank.com.br/images/nu-white.png" class="card__figure--logo"
+                         alt="null"/>
+                </figure>
+                <div class="card__reader">
+                    <div class="card__reader--risk card__reader--risk-one"></div>
+                    <div class="card__reader--risk card__reader--risk-two"></div>
+                    <div class="card__reader--risk card__reader--risk-three"></div>
+                    <div class="card__reader--risk card__reader--risk-four"></div>
+                </div>
+                <p class="card__number" th:text="${
     card.getCardNumber().substring(0,4)+' '+
     card.getCardNumber().substring(4,8)+' '+
     card.getCardNumber().substring(8,12)+' '+
     card.getCardNumber().substring(12,16)}"/>
-            <div class="card__dates">
-                <span class="card__dates--first">09/16</span>
-                <span class="card__dates--second">09/19</span>
+                <div class="card__dates">
+                    <span class="card__dates--first">09/16</span>
+                    <span class="card__dates--second">09/19</span>
+                </div>
+                <p class="card__name" th:text="${card.getUser().getName()+' '+card.getUser().getSurname()}"/>
+                <div class="card__flag">
+                    <div class="card__flag--globe"></div>
+                    <div class="card__flag--red"></div>
+                    <div class="card__flag--yellow"></div>
+                </div>
             </div>
-            <p class="card__name" th:text="${card.getUser().getName()+' '+card.getUser().getSurname()}"/>
-            <div class="card__flag">
-                <div class="card__flag--globe"></div>
-                <div class="card__flag--red"></div>
-                <div class="card__flag--yellow"></div>
+            <div class="m-2  text-center">
+                <a class="my-auto" th:href="${'/cards/'+card.getId()}">See the card</a>
             </div>
         </div>
+
     </div>
+</div>
+
+</div>
 </div>
 <footer th:insert="blocks/footer :: footer"/>
 
