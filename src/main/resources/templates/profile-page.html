@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
->
+      lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Main</title>
@@ -292,9 +292,38 @@
     </div>
 </div>
 
-</div>
+<div class="container">
+    <h1>Change Password:</h1>
+    <label for="txtPassword">New Password: </label>
+    <input type="text" class="form-control" id="txtPassword" name="txtPassword"
+           placeholder="Password">
+    <div style="margin-top: 12px;">
+        <button onclick="changePassword()" class="btn btn-success">Change</button>
+    </div>
+
 </div>
 <footer th:insert="blocks/footer :: footer"/>
 
 </body>
+<script>
+    function changePassword() {
+       let pass= document.getElementById('txtPassword').value;
+        $.ajax({
+            type: "POST",
+            url: "/password/"+pass,
+            data: pass,
+            dataType: 'json',
+            cache: false,
+            timeout: 600000,
+            success: function (data) {
+                alert(data.responseText)
+
+            },
+            error: function (response, error, errorThrown) {
+                alert(response.responseText)
+            }
+        });
+    }
+
+</script>
 </html>

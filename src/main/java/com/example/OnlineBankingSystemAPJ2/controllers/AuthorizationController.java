@@ -1,6 +1,7 @@
 package com.example.OnlineBankingSystemAPJ2.controllers;
 
 import com.example.OnlineBankingSystemAPJ2.services.UserService;
+import org.hibernate.annotations.Type;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -22,10 +23,11 @@ public class AuthorizationController {
         return "login-page";
     }
 
-    @PostMapping("/password")
-    public ResponseEntity<?> changePassword(Principal principal,@RequestBody  @RequestParam(name = "new-password")String password){
-        userService.changePassword(principal.getName(),password);
-        return ResponseEntity.ok("Password successfully changed to"+password);
+    @PostMapping("/password/{pass}")
+    @ResponseBody
+    public ResponseEntity<?> changePassword(Principal principal,@PathVariable(name = "pass") String password) {
+        userService.changePassword(principal.getName(), password);
+        return ResponseEntity.ok().body("Password successfully changed to " + password);
     }
 
 }
