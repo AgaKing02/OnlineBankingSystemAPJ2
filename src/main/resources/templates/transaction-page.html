@@ -17,7 +17,7 @@
 <body>
 <div th:insert="blocks/header::header"/>
 <div class="row m-3">
-    <div class="col m-3 border border-dark" th:each="transaction:${transactions}">
+    <div class="col-12 m-3 border border-dark" th:each="transaction:${transactions}">
         <div th:if="${transaction.getType().equals('INCOME')}" class="row m-3">
             <div class="col-4">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"

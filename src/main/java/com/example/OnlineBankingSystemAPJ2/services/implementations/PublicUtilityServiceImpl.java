@@ -20,7 +20,7 @@ public class PublicUtilityServiceImpl implements PublicUtilityService {
 
     @Override
     public void pay(CreditCard creditCard, CurrencyType currencyType, double amount) {
-        double money = Transfer.change(creditCard.getCurrencyType(), currencyType, amount);
+        double money = Transfer.change(currencyType,creditCard.getCurrencyType(),amount);
         try {
             creditCard.removeAmount(money);
         } catch (NotEnoughMoneyInCardException e) {

@@ -46,6 +46,11 @@
         <div class="col-3 rounded shadow p-2 text-center">
             <div class="right-bar">
                 <h1>Transfer:</h1>
+                <div th:if="${last!=null}">
+                <p>Last transferred:</p>
+                <p th:text="${last}"/>
+                </div>
+
                 <form method="post" th:action="'/my/cards/'+${card.getId()}">
                     <div class="form-group">
                         <label for="to">Card number :</label>

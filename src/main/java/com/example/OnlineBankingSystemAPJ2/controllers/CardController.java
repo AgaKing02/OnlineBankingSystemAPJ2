@@ -15,6 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.List;
 
@@ -48,12 +50,15 @@ public class CardController {
 
     @GetMapping("/cards/{id}")
     @RolesAllowed({"ROLE_ADMINISTRATOR", "ROLE_CONSUMER"})
-    public String getExactCard(Model model, Principal principal, @PathVariable(name = "id") int cardId) {
+    public String getExactCard(Model model, Principal principal, @PathVariable(name = "id") int cardId,HttpSession httpSession) {
         CreditCard creditCard = creditCardService.getCreditCardByIdAndUserUsername(cardId, principal.getName());
-//        if (creditCard == null) {
-//            model.addAttribute("error", "No such card or it is not your card");
-//            return "error-page";
-//        }
+        if (creditCard == null) {
+            model.addAttribute("error", "No such card or it is not your card");
+            return "error-page";
+        }
+        if(httpSession.getAttribute("last")!=null){
+            model.addAttribute("last",httpSession.getAttribute("last"));
+        }
         model.addAttribute("card", creditCard);
         model.addAttribute("history", transactionCtoC.getCreditCardHistory(creditCard));
         return "exact-card-page";
@@ -64,9 +69,11 @@ public class CardController {
     public String doTransaction(Model model, Principal principal, @PathVariable(name = "id") int cardId,
                                 @RequestParam(name = "to") String cardNumber,
                                 @RequestParam(name = "amount") int amount,
-                                @RequestParam(name = "currency", required = false) String type) {
+                                @RequestParam(name = "currency", required = false) String type,
+                                HttpSession httpSession) {
         CreditCard from = creditCardService.getCreditCardByIdAndUserUsername(cardId, principal.getName());
         CreditCard to = creditCardService.getCreditCardByNumber(cardNumber);
+
 
         if (from == null || to == null) {
             model.addAttribute("error", "No such card or it is not your card");
@@ -80,6 +87,8 @@ public class CardController {
         if (transactionCtoC.saveTransaction(transactionC) != null) {
             return "redirect:/my/cards/" + from.getId();
         }
+        httpSession.setAttribute("last",to.getCardNumber());
+
         model.addAttribute("error", "Transaction is not completed");
         return "error-page";
 
