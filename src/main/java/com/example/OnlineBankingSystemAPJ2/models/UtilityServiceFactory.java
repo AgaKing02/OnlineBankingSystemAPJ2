@@ -15,7 +15,12 @@ public class UtilityServiceFactory {
         return services;
     }
     public static Utility getUtilityByName(String name){
-        return UtilityServiceFactory.services.stream().filter(e->e.name.equals(name)).iterator().next();
+        for (Utility utility:getServices()){
+            if(utility.getName().equals(name)){
+                return utility;
+            }
+        }
+        return null;
     }
 
     public static class Utility{

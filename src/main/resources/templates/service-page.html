@@ -36,24 +36,38 @@
     </div>
 </div>
 <div th:insert="blocks/header::header"/>
-<div class="row">
-    <div class="col" th:each="service : ${services}">
+<div class="row m-2">
+    <div class="col m-2" th:each="service : ${services}">
         <h1>Name:</h1>
         <p th:text="${service.getName()}"/>
         <h1>Amount:</h1>
         <p th:text="${service.getAmount()}"/>
         <h1>Currency:</h1>
         <p th:text="${service.getCurrencyType().name()}"/>
-        <button class="btn btn-danger" th:id="${service.getName()}" onclick="getService(this.id)">Pay</button>
+        <button class="btn btn-info p-2" th:id="${service.getName()}" onclick="getService(this.id)">Pay</button>
     </div>
 </div>
 
-<button class="btn btn-danger" onclick="getCards()">Get cards</button>
 <footer th:insert="blocks/footer :: footer"/>
 <script>
-    function pay(cardID, service) {
+    var choosen = "";
 
-
+    function pay(cardID) {
+        var form = 'from='+ cardID  + '&service='+ choosen;
+        $.ajax({
+            type: "POST",
+            url: "/services",
+            dataType: 'json',
+            data:form,
+            cache: false,
+            timeout: 600000,
+            success: function (data) {
+                alert(data.responseText)
+            },
+            error: function (response, error, errorThrown) {
+                console.log(response)
+            }
+        });
     }
 
     function getService(name) {
@@ -75,10 +89,11 @@
 
     function setInfo(service) {
         let head = document.getElementById("exampleModalLabel");
+        choosen = service.name;
         head.innerText = ""
-        head.innerText += service.name+" ";
-        head.innerText += service.amount+" ";
-        head.innerText += service.currencyType+" ";
+        head.innerText += service.name + " ";
+        head.innerText += service.amount + " ";
+        head.innerText += service.currencyType + " ";
         getCards();
 
 
@@ -93,8 +108,8 @@
             timeout: 600000,
             success: function (data) {
                 for (let i = 0; i < data.length; i++) {
-                    body.innerHTML="";
-                    body.innerHTML += "<button id='" + data[i].id + "' class='btn btn-success'>" + data[i].cardNumber + "</button>";
+                    body.innerHTML = "";
+                    body.innerHTML += "<button onclick='pay(this.id)' id='" + data[i].id + "' class='btn btn-success'>" + data[i].cardNumber + "</button>";
                 }
             },
             error: function (response, error, errorThrown) {

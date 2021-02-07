@@ -13,8 +13,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.Objects;
 
 @Controller
+@CrossOrigin("*")
 public class ServiceController {
     @Autowired
     private final CreditCardService creditCardService;
@@ -22,14 +24,16 @@ public class ServiceController {
     private final UserService userService;
     @Autowired
     private final TransactionCtoC transactionCtoC;
+    @Autowired
+    private final PublicUtilityService publicUtilityService;
 
-    private PublicUtilityService publicUtilityService;
-
-    public ServiceController(CreditCardService creditCardService, UserService userService, TransactionCtoC transactionCtoC) {
+    public ServiceController(CreditCardService creditCardService, UserService userService, TransactionCtoC transactionCtoC, PublicUtilityService publicUtilityService) {
         this.creditCardService = creditCardService;
         this.userService = userService;
         this.transactionCtoC = transactionCtoC;
+        this.publicUtilityService = publicUtilityService;
     }
+
     @GetMapping("/services")
     public String getServices(Model model) {
         model.addAttribute("services", UtilityServiceFactory.getServices());
@@ -43,13 +47,15 @@ public class ServiceController {
             Principal principal,
             @RequestBody @RequestParam(name = "service") String name,
             @RequestBody @RequestParam(name = "from") int id) {
+
         CreditCard creditCard = creditCardService.getCreditCardByIdAndUserUsername(id, principal.getName());
         if (creditCard == null) {
             return ResponseEntity.badRequest().body("No card found");
         }
         UtilityServiceFactory.Utility utility = UtilityServiceFactory.getUtilityByName(name);
-        publicUtilityService.pay(creditCard, utility.getCurrencyType(), utility.getAmount());
-        return ResponseEntity.ok("Successfully operated");
+        publicUtilityService.pay(creditCard, Objects.requireNonNull(utility).getCurrencyType(), utility.getAmount());
+
+        return ResponseEntity.ok().body("Successfully done!");
     }
 
 }
