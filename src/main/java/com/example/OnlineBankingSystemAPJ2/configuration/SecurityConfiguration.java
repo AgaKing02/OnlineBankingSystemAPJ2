@@ -39,7 +39,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/login?logout").deleteCookies("JSESSIONID")
-                .invalidateHttpSession(true).and().rememberMe().rememberMeParameter("checkRememberMe").key("aga123").tokenValiditySeconds(60 * 60);
+                .invalidateHttpSession(true).and().rememberMe()
+                .rememberMeParameter("checkRememberMe").key("aga123").tokenValiditySeconds(60 * 60);
         ;
 
     }

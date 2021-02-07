@@ -45,11 +45,12 @@ public class CardController {
     @RolesAllowed({"ROLE_ADMINISTRATOR", "ROLE_CONSUMER"})
     public String getExactCard(Model model, Principal principal, @PathVariable(name = "id") int cardId) {
         CreditCard creditCard = creditCardService.getCreditCardByIdAndUserUsername(cardId, principal.getName());
-        if (creditCard == null) {
-            model.addAttribute("error", "No such card or it is not your card");
-            return "error-page";
-        }
+//        if (creditCard == null) {
+//            model.addAttribute("error", "No such card or it is not your card");
+//            return "error-page";
+//        }
         model.addAttribute("card", creditCard);
+        model.addAttribute("history",transactionCtoC.getCreditCardHistory(creditCard));
         return "exact-card-page";
     }
 
@@ -72,7 +73,7 @@ public class CardController {
         }
         TransactionBetweenC transactionC = new TransactionBetweenC(from, to, amount);
         if (transactionCtoC.saveTransaction(transactionC) != null) {
-            return "redirect:/history";
+            return "redirect:/my/cards/"+from.getId();
         }
         model.addAttribute("error", "Transaction is not completed");
         return "error-page";

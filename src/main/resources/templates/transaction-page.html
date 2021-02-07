@@ -45,12 +45,12 @@
             transaction.getTransactionBetweenC().getAmount()+' '+
             transaction.getTransactionBetweenC().getCurrencyType()}"/></div>
             <div class="col-4"><h1>From:</h1>
-                <h3 class="border border-success" th:text="${
+                <p class="border border-success" th:text="${
             transaction.getTransactionBetweenC().getFrom().getCardNumber()+' '+
             transaction.getTransactionBetweenC().getFrom().getUser().getUsername()}"/>
 
                 <h1>To:</h1>
-                <h3 class="border border-success" th:text="${
+                <p class="border border-success" th:text="${
             transaction.getTransactionBetweenC().getTo().getCardNumber()+' '+
             transaction.getTransactionBetweenC().getTo().getUser().getUsername()}"/></div>
 
@@ -82,12 +82,12 @@
             transaction.getTransactionBetweenC().getAmount()+' '+
             transaction.getTransactionBetweenC().getCurrencyType()}"/></div>
             <div class="col-4"><h1>From:</h1>
-                <h3 class="border border-success" th:text="${
+                <p class="border border-success" th:text="${
             transaction.getTransactionBetweenC().getFrom().getCardNumber()+' '+
             transaction.getTransactionBetweenC().getFrom().getUser().getUsername()}"/>
 
                 <h1>To:</h1>
-                <h3 class="border border-success" th:text="${
+                <p class="border border-success" th:text="${
             transaction.getTransactionBetweenC().getTo().getCardNumber()+' '+
             transaction.getTransactionBetweenC().getTo().getUser().getUsername()}"/></div>
         </div>

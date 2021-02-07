@@ -1,10 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+>
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Card</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+            integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"
+            integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd"
+            crossorigin="anonymous"></script>
 </head>
 <body>
+<div th:insert="blocks/header::header"/>
+<div class="container rounded">
+    <div class="row my-2">
+        <div class="col-9 rounded shadow p-2">
+            <div class="main">
+                <div class="card-info">
+                    <h1>Card number</h1>
+                    <p th:text="${card.getCardNumber()}"/>
+                    <h1>Card currency</h1>
+                    <p th:text="${card.getCurrencyType().name()}"/>
+                    <h1>Deposit</h1>
+                    <p th:text="${card.getAmount()}"/>
+                </div>
+                <div class="card-history">
+                    <div class="row">
+                        <div class="col-12 p-1" th:each="transaction:${history}">
+                            <p th:text="${
+                            'From '+
+                            transaction.getFrom().getUser().getUsername()
+                            +' to '+
+                            transaction.getTo().getUser().getUsername()
+                            +' amount '+
+                            transaction.getAmount()+' '+transaction.getCurrencyType().name()}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-3 rounded shadow p-2 text-center">
+            <div class="right-bar">
+                <h1>Transfer:</h1>
+                <form method="post" th:action="'/my/cards/'+${card.getId()}">
+                    <div class="form-group">
+                        <label for="to">Card number :</label>
+                        <input type="text" class="form-control" id="to" name="to" aria-describedby="emailHelp" placeholder="Card Number">
+                        <small id="emailHelp" class="form-text text-muted">We'll never share card numbers with anyone else.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="amount">Amount :</label>
+                        <input type="number" class="form-control" id="amount" name="amount" placeholder="Amount">
+                    </div>
+<!--                    <div class="form-check">-->
+<!--                        <input type="checkbox" class="form-check-input" id="exampleCheck1">-->
+<!--                        <label class="form-check-label" for="exampleCheck1">Check me out</label>-->
+<!--                    </div>-->
+                    <button type="submit" class="btn btn-primary">Transfer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<footer th:insert="blocks/footer :: footer"/>
 
 </body>
-</html>

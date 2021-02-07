@@ -1,5 +1,6 @@
 package com.example.OnlineBankingSystemAPJ2.repositories;
 
+import com.example.OnlineBankingSystemAPJ2.models.CreditCard;
 import com.example.OnlineBankingSystemAPJ2.models.transactions.TransactionBetweenC;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -11,4 +12,6 @@ import java.util.List;
 public interface TransactionBetweenCRepository extends TransactionRepository{
     @Query("select o from TransactionBetweenC o where o.from.user.username=:username or o.to.user.username=:username")
     List<TransactionBetweenC> getUserTransactions(@Param("username")String username);
+    @Query("select o from TransactionBetweenC o where o.from=:card or o.to=:card")
+    List<TransactionBetweenC> getCreditCardHistory(@Param("card") CreditCard creditCard);
 }

@@ -46,6 +46,11 @@ public class TransactionCtoCService implements TransactionCtoC {
         return transactionBetweenCRepository.findAll();
     }
 
+    @Override
+    public List<TransactionBetweenC> getCreditCardHistory(CreditCard creditCard) {
+        return transactionBetweenCRepository.getCreditCardHistory(creditCard);
+    }
+
 
     @Override
     @Transactional
