@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Services</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+            integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"
+            integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="info">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:insert="blocks/header::header"/>
+<div class="row">
+    <div class="col" th:each="service : ${services}">
+        <h1>Name:</h1>
+        <p th:text="${service.getName()}"/>
+        <h1>Amount:</h1>
+        <p th:text="${service.getAmount()}"/>
+        <h1>Currency:</h1>
+        <p th:text="${service.getCurrencyType().name()}"/>
+        <button class="btn btn-danger" th:id="${service.getName()}" onclick="getService(this.id)">Pay</button>
+    </div>
+</div>
+
+<button class="btn btn-danger" onclick="getCards()">Get cards</button>
+<footer th:insert="blocks/footer :: footer"/>
+<script>
+    function pay(cardID, service) {
+
+
+    }
+
+    function getService(name) {
+        $('#exampleModal').modal('show')
+        $.ajax({
+            type: "GET",
+            url: "/rest/service/" + name,
+            cache: false,
+            timeout: 600000,
+            success: function (data) {
+                setInfo(data)
+            },
+            error: function (response, error, errorThrown) {
+                console.log(response)
+            }
+        });
+
+    }
+
+    function setInfo(service) {
+        let head = document.getElementById("exampleModalLabel");
+        head.innerText = ""
+        head.innerText += service.name+" ";
+        head.innerText += service.amount+" ";
+        head.innerText += service.currencyType+" ";
+        getCards();
+
+
+    }
+
+    function getCards() {
+        let body = document.getElementById("info")
+        $.ajax({
+            type: "GET",
+            url: "/rest/cards",
+            cache: false,
+            timeout: 600000,
+            success: function (data) {
+                for (let i = 0; i < data.length; i++) {
+                    body.innerHTML="";
+                    body.innerHTML += "<button id='" + data[i].id + "' class='btn btn-success'>" + data[i].cardNumber + "</button>";
+                }
+            },
+            error: function (response, error, errorThrown) {
+                alert("Error")
+            }
+        });
+    }
+</script>
+</body>

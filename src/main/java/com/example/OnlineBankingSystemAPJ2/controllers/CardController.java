@@ -2,11 +2,14 @@ package com.example.OnlineBankingSystemAPJ2.controllers;
 
 import com.example.OnlineBankingSystemAPJ2.models.CreditCard;
 import com.example.OnlineBankingSystemAPJ2.models.User;
+import com.example.OnlineBankingSystemAPJ2.models.UtilityServiceFactory;
 import com.example.OnlineBankingSystemAPJ2.models.transactions.TransactionBetweenC;
 import com.example.OnlineBankingSystemAPJ2.services.CreditCardService;
+import com.example.OnlineBankingSystemAPJ2.services.PublicUtilityService;
 import com.example.OnlineBankingSystemAPJ2.services.UserService;
 import com.example.OnlineBankingSystemAPJ2.services.transactions.TransactionCtoC;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +27,8 @@ public class CardController {
     private final UserService userService;
     @Autowired
     private final TransactionCtoC transactionCtoC;
+
+    private PublicUtilityService publicUtilityService;
 
     public CardController(CreditCardService creditCardService, UserService userService, TransactionCtoC transactionCtoC) {
         this.creditCardService = creditCardService;
@@ -50,7 +55,7 @@ public class CardController {
 //            return "error-page";
 //        }
         model.addAttribute("card", creditCard);
-        model.addAttribute("history",transactionCtoC.getCreditCardHistory(creditCard));
+        model.addAttribute("history", transactionCtoC.getCreditCardHistory(creditCard));
         return "exact-card-page";
     }
 
@@ -73,12 +78,13 @@ public class CardController {
         }
         TransactionBetweenC transactionC = new TransactionBetweenC(from, to, amount);
         if (transactionCtoC.saveTransaction(transactionC) != null) {
-            return "redirect:/my/cards/"+from.getId();
+            return "redirect:/my/cards/" + from.getId();
         }
         model.addAttribute("error", "Transaction is not completed");
         return "error-page";
 
     }
+
 
 
 }

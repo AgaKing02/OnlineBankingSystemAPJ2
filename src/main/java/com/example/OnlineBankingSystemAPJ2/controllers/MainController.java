@@ -1,13 +1,18 @@
 package com.example.OnlineBankingSystemAPJ2.controllers;
 
 import com.example.OnlineBankingSystemAPJ2.models.Bank;
+import com.example.OnlineBankingSystemAPJ2.models.UtilityServiceFactory;
 import com.example.OnlineBankingSystemAPJ2.models.dto.BankDto;
 import com.example.OnlineBankingSystemAPJ2.services.transactions.BankService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +40,8 @@ public class MainController {
     public String getBanks() {
         return "main-page";
     }
+
+
 
 
 }

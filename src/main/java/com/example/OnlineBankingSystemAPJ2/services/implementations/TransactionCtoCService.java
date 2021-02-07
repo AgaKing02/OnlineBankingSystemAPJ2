@@ -69,6 +69,7 @@ public class TransactionCtoCService implements TransactionCtoC {
     }
 
     @Override
+    @Transactional
     public void updateTransaction(TransactionBetweenC transaction) {
         transactionBetweenCRepository.save(transaction);
     }
@@ -79,6 +80,7 @@ public class TransactionCtoCService implements TransactionCtoC {
     }
 
     @Override
+    @Transactional
     public void removeTransaction(TransactionBetweenC transaction) {
         transactionBetweenCRepository.delete(transaction);
     }
