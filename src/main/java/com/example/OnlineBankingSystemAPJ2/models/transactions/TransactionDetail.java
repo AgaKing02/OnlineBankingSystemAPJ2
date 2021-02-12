@@ -1,6 +1,4 @@
-package com.example.OnlineBankingSystemAPJ2.models;
-
-import com.example.OnlineBankingSystemAPJ2.models.transactions.TransactionBetweenC;
+package com.example.OnlineBankingSystemAPJ2.models.transactions;
 
 public class TransactionDetail {
     private String type;
@@ -8,11 +6,11 @@ public class TransactionDetail {
     private TransactionBetweenC transactionBetweenC;
 
 
-    public TransactionDetail( String username, TransactionBetweenC transactionBetweenC) {
-        if(transactionBetweenC.getFrom().getUser().getUsername().equals(username)){
+    public TransactionDetail(String username, TransactionBetweenC transactionBetweenC) {
+        if (transactionBetweenC.getFrom().getUser().getUsername().equals(username)) {
             this.type = "OUTCOME";
-        }else {
-            this.type="INCOME";
+        } else {
+            this.type = "INCOME";
         }
 
         this.username = username;

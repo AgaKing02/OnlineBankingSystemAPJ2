@@ -107,8 +107,8 @@
             cache: false,
             timeout: 600000,
             success: function (data) {
+                body.innerHTML = "";
                 for (let i = 0; i < data.length; i++) {
-                    body.innerHTML = "";
                     body.innerHTML += "<button onclick='pay(this.id)' id='" + data[i].id + "' class='btn btn-success'>" + data[i].cardNumber + "</button>";
                 }
             },

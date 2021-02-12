@@ -1,6 +1,6 @@
 package com.example.OnlineBankingSystemAPJ2.controllers;
 
-import com.example.OnlineBankingSystemAPJ2.models.TransactionDetail;
+import com.example.OnlineBankingSystemAPJ2.models.transactions.TransactionDetail;
 import com.example.OnlineBankingSystemAPJ2.models.transactions.TransactionBetweenC;
 import com.example.OnlineBankingSystemAPJ2.services.transactions.TransactionCtoC;
 import org.springframework.beans.factory.annotation.Autowired;
